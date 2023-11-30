@@ -3,20 +3,19 @@ import java.util.*;
 class Solution {
     private static final char[] group = new char[] {'A', 'E', 'I', 'O', 'U'};
     
-    private List<String> generate(String word){
-        List<String> words = new ArrayList<>();
+    private void generate(String word, List<String> words){
         words.add(word);
         
-        if(word.length() == 5) return words;
+        if(word.length() == 5) return;
         
         for(char c : group){
-            words.addAll(generate(word + c));
+            generate(word + c, words);
         }
-        
-        return words;
     }
     public int solution(String word) {
-        int answer = generate("").indexOf(word);
+        List<String> words = new ArrayList<>();
+        generate("", words);
+        int answer = words.indexOf(word);
         return answer;
     }
 }
