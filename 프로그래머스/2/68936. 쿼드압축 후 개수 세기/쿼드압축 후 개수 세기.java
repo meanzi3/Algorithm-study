@@ -1,47 +1,39 @@
 class Solution {
-    private static class Count{
-        public final int zero;
-        public final int one;
-        
-        public Count(int zero, int one){
-            this.zero = zero;
-            this.one = one;
-        }
-        
-        // 두 Count 객체를 합함
-        public Count add(Count other){
-            return new Count(zero + other.zero, one + other.one);
-        }
-    }
+    static int[] answer;
     
-    private Count count(int offsetX, int offsetY, int size, int[][] arr){
-        
-        int h = size / 2;
-        
-        // 모두 같은 값인지 검사
-        for(int x = offsetX; x < offsetX + size; x++){
-            for(int y = offsetY; y < offsetY + size; y++){
-                if(arr[y][x] != arr[offsetY][offsetX]){
-                    // 원소가 다 같은 값이 아니라면
-                    return count(offsetX, offsetY, h, arr) 
-                        .add(count(offsetX + h, offsetY, h, arr))
-                        .add(count(offsetX, offsetY + h, h, arr))
-                        .add(count(offsetX + h, offsetY + h, h, arr));
-                }
+    // 영역 안의 값이 같은지 다른지 검사.
+    private boolean isSame(int x, int y, int size, int[][] arr){
+        for(int i = x; i < x + size; i++){
+            for(int j = y; j < y + size; j++){
+                if(arr[j][i] != arr[y][x])
+                    return false;
             }
         }
-        
-        // 같은 값이라면 
-        // 1일 때
-        if(arr[offsetY][offsetX] == 1){
-            return new Count(0, 1);
+        return true;
+    }
+    
+    private void quad(int x, int y, int size, int[][] arr){
+        // 다 같으면
+        if(isSame(x, y, size, arr)){
+            answer[arr[y][x]]++;
+            return;
         }
-        // 0일 때
-        return new Count(1, 0);
+        
+        // 다르면
+        
+        size = size / 2;
+        
+        quad(x, y, size, arr);
+        quad(x + size, y, size, arr);
+        quad(x, y + size, size, arr);
+        quad(x + size, y + size, size, arr);
+        
     }
     public int[] solution(int[][] arr) {
-        Count count = count(0, 0, arr.length, arr);
-        int[] answer = new int[] {count.zero, count.one};
+        answer = new int[2];
+        
+        quad(0, 0, arr.length, arr);
+        
         return answer;
     }
 }
