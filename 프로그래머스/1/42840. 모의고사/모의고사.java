@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.stream.*;
 
 class Solution {
     
@@ -28,19 +28,25 @@ class Solution {
             if(score[i] > max) max = score[i];
         }
     
-        // score 배열 돌면서 max인 사람 찾아서 answer 배열에 저장
-        List<Integer> answerList = new ArrayList<>();
-        for(int i = 0; i < 3; i++){
-            // 여러 명이면?? return 값을 오름차순 정렬.....
-            if(score[i] == max){
-                answerList.add(i + 1);
-            }
-        }
+//         // score 배열 돌면서 max인 사람 찾아서 answer 배열에 저장
+//         List<Integer> answerList = new ArrayList<>();
+//         for(int i = 0; i < 3; i++){
+//             // 여러 명이면?? return 값을 오름차순 정렬.....
+//             if(score[i] == max){
+//                 answerList.add(i + 1);
+//             }
+//         }
         
-        int[] answer = answerList.stream()
-            .mapToInt(i -> i)
+//         int[] answer = answerList.stream()
+//             .mapToInt(i -> i)
+//             .toArray();
+        
+//         return answer;
+        
+        final int maxCorrects = max;
+        return IntStream.range(0, 3)
+            .filter(i -> score[i] == maxCorrects)
+            .map(i -> i + 1)
             .toArray();
-        
-        return answer;
     }
 }
