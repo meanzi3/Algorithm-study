@@ -15,12 +15,10 @@ class Solution {
             // 완주한 사람은 map에서 value 값을 1 빼줌
             // 최종적으로 value가 1인 사람이 남을 것 -> 완주하지 못한 사람
             map.put(name, map.get(name) - 1) ;
+            
+            if(map.get(name) == 0) map.remove(name);
         }
         
-        for(String name : participant){
-            if(map.get(name) > 0) return name;
-        }
-        
-        return answer;
+        return map.keySet().iterator().next();
     }
 }
