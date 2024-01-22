@@ -1,17 +1,19 @@
+import java.util.*;
+
 class Solution {
     public int solution(int[] numbers) {
         int answer = 0;
-        int arr[] = new int[10];
         
-        for(int i = 0; i < numbers.length; i++){
-            arr[numbers[i]] += 1;
+        Set<Integer> set = new HashSet<Integer>();
+        for(int i : numbers){
+            set.add(i);
         }
         
-        for(int i =0; i < arr.length; i++){
-            if(arr[i] == 0){
-                answer += i;
-            }
+        for(int i = 0; i < 10; i++){
+            if(set.contains(i)) continue;
+            answer += i;
         }
+        
         return answer;
     }
 }
