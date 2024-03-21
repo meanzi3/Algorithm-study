@@ -14,5 +14,9 @@ class Solution {
         // set의 크기가 n 보다 크다면 답은 n, 
         answer = set.size() > n ? n : set.size();
         return answer;
+        
+        // 시간 복잡도 : for문 도니까 O(n)
+        // 공간 복잡도 : Set 이용하니까 O(n)
+        
     }
 }
