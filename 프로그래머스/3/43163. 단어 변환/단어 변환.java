@@ -1,36 +1,43 @@
+import java.util.*;
+
 class Solution {
-    static int answer = Integer.MAX_VALUE;
     public int solution(String begin, String target, String[] words) {
+        int answer = 0;
         
-        boolean[] visited = new boolean[words.length];
-        dfs(0, 0, begin, target, words, visited);
-        return answer == Integer.MAX_VALUE ? 0 : answer;
-    }
-    
-    private static void dfs(int index, int count, String begin, String target, String[] words, boolean[] visited){
-        // 종료 조건
-        if(begin.equals(target)){
-            answer = Math.min(answer, count);
-        }
-        for(int i = 0; i < words.length; i++){
-            // 이미 방문했거나, 1글자 차이가 아니거나, answer가 count보다 작다면 
-            if(visited[i] || !checkWord(begin, words[i]) || answer <= count){
-                continue;
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(begin);
+        
+        Set<String> visited = new HashSet<>();
+        visited.add(begin);
+        
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i = 0; i < size; i++){
+                String current = queue.poll();
+                if(current.equals(target)){
+                    return answer;
+                }
+                
+                for(String word : words){
+                    if(!visited.contains(word) && isOneDiff(current, word)){
+                        visited.add(word);
+                        queue.offer(word);
+                    }
+                }
             }
-            visited[i] = true;
-            dfs(i, count + 1, words[i], target, words, visited);
-            visited[i] = false;
-        }
-    }
-    
-    // 한 단어만 다른지 확인하는 함수
-    private static boolean checkWord(String s1, String s2){
-        int difference = 0;
-        for(int i = 0; i < s1.length(); i++){
-            if(s1.charAt(i) != s2.charAt(i))    difference++;
+            answer++;
         }
         
-        if(difference > 1) return false;
-        return true;
+        return 0;
+    }
+    
+    private static boolean isOneDiff(String word1, String word2){
+        int diffCount = 0;
+        for(int i = 0; i < word1.length(); i++){
+            if(word1.charAt(i) != word2.charAt(i)){
+                diffCount++;
+            }
+        }
+        return diffCount == 1;
     }
 }
