@@ -21,7 +21,8 @@ class Solution {
         
         while(count < jobs.length){
             while(index < jobs.length && jobs[index][0] <= end){
-                pq.add(jobs[index++]);
+                pq.add(jobs[index++]); 
+                //현재 작업 중인 job이 끝나는 시간 전에 요청된 작업들을 우선순위 큐에 추가
             } 
             
             if(pq.isEmpty()){
