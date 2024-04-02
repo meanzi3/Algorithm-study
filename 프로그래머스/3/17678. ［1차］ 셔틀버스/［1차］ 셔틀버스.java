@@ -28,13 +28,13 @@ class Solution {
         int answer = 0;
         for(int i = 0; i < n; i++){
             while(!pq.isEmpty()){
-                int crew = pq.poll();
+                int crew = pq.peek();
                 // 버스 도착 시간보다 일찍 왔고, 자리가 아직 있다면
                 if(crew <= arrivalTime && bus.get(i).size() < m){
-                    bus.get(i).add(crew); // 버스에 탐   
+                    bus.get(i).add(pq.poll()); // 버스에 탐   
                     answer = crew - 1; // 마지막 탑승자이면 콘은 그 크루보다 1분 먼저 오면 탈 수 있음
                 } else{
-                    pq.add(crew); // 다시 큐에 넣고 다음 버스로
+                    // 다음 버스로
                     break;
                 }
                 
