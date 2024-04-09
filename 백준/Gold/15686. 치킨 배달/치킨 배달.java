@@ -27,7 +27,6 @@ public class Main {
 		// System.setIn(new FileInputStream("src/boj15686/input.txt"));
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
@@ -51,9 +50,7 @@ public class Main {
 		
 		dfs(0, 0);
 		
-		bw.write(minCityChickenDist + "\n");
-		bw.flush();
-		bw.close();
+		System.out.println(minCityChickenDist);
 		br.close();
 	}
 	
