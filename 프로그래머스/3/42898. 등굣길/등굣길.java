@@ -24,16 +24,15 @@ class Solution {
                 }
                 
                 if(y != 0) { // 0행이 아닌 칸
-                    dp[y][x] += dp[y-1][x] % 1000000007;
+                    dp[y][x] = (dp[y][x] + dp[y-1][x]) % 1000000007;
+
                 }
-                
                 if(x != 0) { // 0열이 아닌 칸
-                    dp[y][x] += dp[y][x-1] % 1000000007;
+                    dp[y][x] = (dp[y][x] + dp[y][x-1]) % 1000000007;
                 }
             }
             
         }
-        
         answer = dp[n-1][m-1] % 1000000007;
         
         return answer;
