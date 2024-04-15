@@ -33,7 +33,7 @@ class Solution {
             }
             
         }
-        answer = dp[n-1][m-1] % 1000000007;
+        answer = dp[n-1][m-1];
         
         return answer;
     }
