@@ -29,7 +29,7 @@ public class Main {
 		// 1 -> 2
 		for(int i = 0; i < sb.length(); i++) {
 			if(sb.charAt(i) == '1' && oneCnt != 0) {
-				sb.deleteCharAt(i);
+				sb.setCharAt(i, '2');
 				oneCnt--;
 			};	
 			if(oneCnt == 0) break;
@@ -38,13 +38,18 @@ public class Main {
 		// 0 -> 2
 		for(int i = sb.length() -1; i >= 0; i--) {
 			if(sb.charAt(i) == '0' && zeroCnt != 0) {
-				sb.deleteCharAt(i);
+				sb.setCharAt(i,'2');
 				zeroCnt--;
 			}
 			if(zeroCnt == 0) break;
 		}
 		
-		String answer = sb.toString();
+		String answer = "";
+		
+		for(int i = 0; i < sb.length(); i++) {
+			if(sb.charAt(i) == '1' || sb.charAt(i) == '0')
+				answer += sb.charAt(i);
+		}
 		
 		System.out.println(answer);
 		
