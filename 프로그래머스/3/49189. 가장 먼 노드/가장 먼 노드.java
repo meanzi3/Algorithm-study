@@ -2,19 +2,23 @@ import java.util.*;
 
 class Solution {
     
-    private boolean[][] graphs;
+    private List<List<Integer>> adjList;
     private boolean[] visited;
     
     public int solution(int n, int[][] edge) {
         int answer = 0;
         
-        graphs = new boolean[n + 1][n + 1];
+        adjList = new ArrayList<>();
         visited = new boolean[n + 1];
         
-        // 인접 행렬로 표현
+        // 인접 리스트로 표현
+        for(int i = 0; i <= n; i++){
+            adjList.add(new ArrayList<>());
+        }
+        
         for(int[] vertex : edge){
-            graphs[vertex[0]][vertex[1]] = true;
-            graphs[vertex[1]][vertex[0]] = true;
+            adjList.get(vertex[0]).add(vertex[1]);
+            adjList.get(vertex[1]).add(vertex[0]);
         }
         
         answer = bfs();
@@ -37,7 +41,7 @@ class Solution {
             for(int i = 0; i < size; i++){
                 int tmp = q.poll();
                 for(int j = 1; j < visited.length; j++){
-                    if(!visited[j] && graphs[tmp][j]){
+                    if(!visited[j] && adjList.get(tmp).contains(j)){
                         q.offer(j);
                         visited[j] = true;
                     }
