@@ -40,10 +40,10 @@ class Solution {
              
             for(int i = 0; i < size; i++){
                 int tmp = q.poll();
-                for(int j = 1; j < visited.length; j++){
-                    if(!visited[j] && adjList.get(tmp).contains(j)){
-                        q.offer(j);
-                        visited[j] = true;
+                for(int neighbor : adjList.get(tmp)){
+                    if(!visited[neighbor]){
+                        q.offer(neighbor);
+                        visited[neighbor] = true;
                     }
                 }
             }
