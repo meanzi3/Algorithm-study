@@ -51,6 +51,8 @@ public class Main {
 			
 			int dir = tmpNode[1];
 			
+            if(dir > K)	continue;
+            
 			if(dir == K) {
 				answer.add(tmpNode[0]);
 			}
