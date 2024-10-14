@@ -29,13 +29,10 @@ public class Main {
 		for(int i = 0; i < board.length; i++) {
 			if(i == 0) {
 				
-				dpMax[i][0] = board[i][0];
-				dpMax[i][1] = board[i][1];
-				dpMax[i][2] = board[i][2];
+				dpMax[i][0] = dpMin[i][0] = board[i][0];
+				dpMax[i][1] = dpMin[i][1] = board[i][1];
+				dpMax[i][2] = dpMin[i][2] = board[i][2];
 				
-				dpMin[i][0] = board[i][0];
-				dpMin[i][1] = board[i][1];
-				dpMin[i][2] = board[i][2];
 			} else {
 				
 				dpMax[i][0] = Math.max(dpMax[i-1][0], dpMax[i-1][1]) + board[i][0];
