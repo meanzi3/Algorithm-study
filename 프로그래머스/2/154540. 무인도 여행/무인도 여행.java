@@ -31,8 +31,9 @@ class Solution {
         for(int i = 0; i < map.length; i++){
             for(int j = 0; j < map[0].length; j++){
                 if(!visited[i][j] && map[i][j] != 0){
-                    // dfs로 섬 탐색
-                    dfs(i, j);
+                    // bfs로 섬 탐색
+                    visited[i][j] = true;
+                    bfs(i, j);
                     answerList.add(day);
                     day = 0;
                 }
@@ -54,19 +55,29 @@ class Solution {
         return answer;
     }
     
-    private static void dfs(int r, int c){
-        visited[r][c] = true;
-        day += map[r][c];
+    private static void bfs(int r, int c){
+        Queue<int[]> q = new LinkedList<>();
         
-        for(int i = 0; i < 4; i++){
-            int nr = r + dr[i];
-            int nc = c + dc[i];
+        q.offer(new int[] {r, c});
+        
+        while(!q.isEmpty()){
             
-            // 범위, 방문, 무인도인지 확인
-            if(nr < 0 || nr >= map.length || nc < 0 || nc >= map[0].length || visited[nr][nc] || map[nr][nc] == 0)  continue;
+            int[] tmp = q.poll();
+            int tmpR = tmp[0];
+            int tmpC = tmp[1];
             
-            dfs(nr, nc);
+            day += map[tmpR][tmpC];
+            
+            for(int i = 0; i < 4; i++){
+                int nr = tmpR + dr[i];
+                int nc = tmpC + dc[i];
+
+                // 범위, 방문, 무인도인지 확인
+                if(nr < 0 || nr >= map.length || nc < 0 || nc >= map[0].length || visited[nr][nc] || map[nr][nc] == 0)  continue;
+
+                visited[nr][nc] = true;
+                q.offer(new int[] {nr, nc});
+            }
         }
-        
     }
 }
